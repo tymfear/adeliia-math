@@ -1,16 +1,17 @@
-<mat-button-toggle-group
-  name="difficulty"
-  [(value)]="difficulty"
-  aria-label="Difficulty"
->
-  <mat-button-toggle value="easy" (change)="selectionChanged()"
-    >Легко</mat-button-toggle
+<div style="display: flex; justify-content: center">
+  <mat-button-toggle-group
+    name="difficulty"
+    [(value)]="difficulty"
+    aria-label="Difficulty"
   >
-  <mat-button-toggle value="normal" (change)="selectionChanged()"
-    >Нормально</mat-button-toggle
-  >
-</mat-button-toggle-group>
-
+    <mat-button-toggle value="easy" (change)="selectionChanged()"
+      >Легко</mat-button-toggle
+    >
+    <mat-button-toggle value="normal" (change)="selectionChanged()"
+      >Нормально</mat-button-toggle
+    >
+  </mat-button-toggle-group>
+</div>
 <mat-grid-list [cols]="cols$ | async" rowHeight="100px" gutterSize="42px">
   <mat-grid-tile *ngFor="let task of tasks">
     <app-task-card [task]="task"></app-task-card>
