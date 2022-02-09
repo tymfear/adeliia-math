@@ -6,10 +6,10 @@
       aria-label="Difficulty"
     >
       <mat-button-toggle value="easy" (change)="difficultyChanged()"
-        >Легко</mat-button-toggle
+        >Helppo</mat-button-toggle
       >
       <mat-button-toggle value="normal" (change)="difficultyChanged()"
-        >Нормально</mat-button-toggle
+        >Tavallinen</mat-button-toggle
       >
     </mat-button-toggle-group>
     <span class="example-spacer"></span>
@@ -28,6 +28,6 @@
 </mat-grid-list>
 <ng-template #notStarted>
   <button mat-raised-button color="primary" (click)="start()" class="start-btn">
-    Start
+    Aloittaa
   </button>
 </ng-template>
