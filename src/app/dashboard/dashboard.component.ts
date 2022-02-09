@@ -21,17 +21,10 @@ export class DashboardComponent {
     .map(() => this.generateTask());
 
   cols$: Observable<number>;
-  rowHeight$: Observable<string>;
 
   constructor(private breakpointObserver: BreakpointObserver) {
-    const breakpoints = this.breakpointObserver.observe([
-      Breakpoints.XSmall,
-      '(max-width: 855px)',
-    ]);
+    const breakpoints = this.breakpointObserver.observe(Breakpoints.XSmall);
     this.cols$ = breakpoints.pipe(map(({ matches }) => (matches ? 1 : 2)));
-    this.rowHeight$ = breakpoints.pipe(
-      map(({ matches }) => (matches ? '4:1' : '8:1'))
-    );
   }
 
   private generateTask(): Task {

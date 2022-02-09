@@ -6,10 +6,19 @@
   background-color: darkred;
 }
 
+.mat-card-content {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-evenly;
+}
+
 .mat-card-content span {
   margin: 0 4px;
 }
 
 .mat-form-field {
   margin: 0 4px;
+  width: 100px;
 }
