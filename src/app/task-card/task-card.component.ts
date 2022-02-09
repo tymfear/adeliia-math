@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 export type Operation = '+' | '-';
 export interface Task {
+  id: number;
   a: number;
   b: number;
   operation: Operation;
@@ -14,6 +15,7 @@ export interface Task {
 })
 export class TaskCardComponent implements OnInit {
   @Input() task!: Task;
+  @Output() done = new EventEmitter();
 
   answer = '';
   result?: boolean;
@@ -23,11 +25,15 @@ export class TaskCardComponent implements OnInit {
   ngOnInit(): void {}
 
   checkAnswer() {
+    if (Number.isNaN(parseInt(this.answer))) {
+      return;
+    }
+
     const correctResult = eval(
       `${this.task.a}${this.task.operation}${this.task.b}`
     );
 
     this.result = correctResult === this.answer;
-    console.log(this.result);
+    this.done.emit(this.task.id);
   }
 }

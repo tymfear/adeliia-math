@@ -18,6 +18,7 @@ import {
   MatButtonToggleGroup,
   MatButtonToggleModule,
 } from '@angular/material/button-toggle';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent, TaskCardComponent],
@@ -35,6 +36,8 @@ import {
     LayoutModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatToolbarModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

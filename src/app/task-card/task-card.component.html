@@ -14,7 +14,13 @@
       *ngIf="result === undefined; else showResult"
     >
       <mat-label>Ответ</mat-label>
-      <input matInput type="number" [(ngModel)]="answer" />
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="answer"
+        (submit)="checkAnswer()"
+        (keyup.enter)="checkAnswer()"
+      />
     </mat-form-field>
     <ng-template #showResult>
       <span>{{ answer }}</span>

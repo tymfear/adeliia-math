@@ -1,19 +1,33 @@
-<div style="display: flex; justify-content: center">
-  <mat-button-toggle-group
-    name="difficulty"
-    [(value)]="difficulty"
-    aria-label="Difficulty"
-  >
-    <mat-button-toggle value="easy" (change)="selectionChanged()"
-      >Легко</mat-button-toggle
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <mat-button-toggle-group
+      name="difficulty"
+      [(value)]="difficulty"
+      aria-label="Difficulty"
     >
-    <mat-button-toggle value="normal" (change)="selectionChanged()"
-      >Нормально</mat-button-toggle
-    >
-  </mat-button-toggle-group>
-</div>
-<mat-grid-list [cols]="cols$ | async" rowHeight="100px" gutterSize="42px">
-  <mat-grid-tile *ngFor="let task of tasks">
-    <app-task-card [task]="task"></app-task-card>
+      <mat-button-toggle value="easy" (change)="difficultyChanged()"
+        >Легко</mat-button-toggle
+      >
+      <mat-button-toggle value="normal" (change)="difficultyChanged()"
+        >Нормально</mat-button-toggle
+      >
+    </mat-button-toggle-group>
+    <span class="example-spacer"></span>
+    <span>{{ timer$ | async | date: "m:ss:SS" }}</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-grid-list
+  [cols]="cols$ | async"
+  rowHeight="100px"
+  gutterSize="42px"
+  *ngIf="inProgress; else notStarted"
+>
+  <mat-grid-tile *ngFor="let task of tasks" style="padding-top: 8px">
+    <app-task-card [task]="task" (done)="handleDone($event)"></app-task-card>
   </mat-grid-tile>
 </mat-grid-list>
+<ng-template #notStarted>
+  <button mat-raised-button color="primary" (click)="start()" class="start-btn">
+    Start
+  </button>
+</ng-template>
