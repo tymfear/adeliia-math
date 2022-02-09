@@ -11,9 +11,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
 import { TaskCardComponent } from './task-card/task-card.component';
-import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import {
+  MatButtonToggleGroup,
+  MatButtonToggleModule,
+} from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent, TaskCardComponent],
@@ -27,6 +31,10 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     FormsModule,
     MatGridListModule,
+    MatMenuModule,
+    LayoutModule,
+    MatButtonModule,
+    MatButtonToggleModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import * as chance from 'chance';
 import { Operation, Task } from '../task-card/task-card.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,28 +11,42 @@ import { Operation, Task } from '../task-card/task-card.component';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
-  tasks: Task[] = [];
   private chance = chance();
+  private readonly taskCount = 10;
 
-  constructor() {
-    this.tasks.push(this.generateTask());
-    this.tasks.push(this.generateTask());
-    this.tasks.push(this.generateTask());
-    this.tasks.push(this.generateTask());
-    this.tasks.push(this.generateTask());
-    this.tasks.push(this.generateTask());
-    this.tasks.push(this.generateTask());
-    this.tasks.push(this.generateTask());
+  difficulty: 'easy' | 'normal' = 'normal';
+
+  tasks: Task[] = new Array(this.taskCount)
+    .fill(null)
+    .map(() => this.generateTask());
+
+  cols$: Observable<number>;
+  rowHeight$: Observable<string>;
+
+  constructor(private breakpointObserver: BreakpointObserver) {
+    const breakpoints = this.breakpointObserver.observe([
+      Breakpoints.XSmall,
+      '(max-width: 855px)',
+    ]);
+    this.cols$ = breakpoints.pipe(map(({ matches }) => (matches ? 1 : 2)));
+    this.rowHeight$ = breakpoints.pipe(
+      map(({ matches }) => (matches ? '4:1' : '8:1'))
+    );
   }
 
-  generateTask(): Task {
+  private generateTask(): Task {
     const operation = this.chance.pickone<Operation>(['-', '+']);
     const oneDigit = this.chance.integer({ min: 0, max: 9 });
-    const twoDigits = this.chance.integer({ min: 10, max: 99 });
+    const twoDigits =
+      this.difficulty === 'normal'
+        ? this.chance.integer({ min: 10, max: 99 })
+        : this.chance.integer({ min: 0, max: 9 });
 
     const [a, b] =
       operation === '-'
-        ? [twoDigits, oneDigit]
+        ? oneDigit > twoDigits
+          ? [oneDigit, twoDigits]
+          : [twoDigits, oneDigit]
         : this.chance.shuffle([oneDigit, twoDigits]);
 
     return {
@@ -37,5 +54,11 @@ export class DashboardComponent {
       b,
       operation,
     };
+  }
+
+  selectionChanged() {
+    this.tasks = new Array(this.taskCount)
+      .fill(null)
+      .map(() => this.generateTask());
   }
 }
