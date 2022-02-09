@@ -1,0 +1,19 @@
+<mat-card [ngClass]="{
+  correct: result === true,
+  incorrect: result === false
+}">
+  <mat-card-content>
+    <span>{{task.a}}</span>
+    <span>{{task.operation}}</span>
+    <span>{{task.b}}</span>
+    <span>=</span>
+    <mat-form-field appearance="fill" *ngIf="result === undefined; else showResult">
+      <mat-label>Ответ</mat-label>
+      <input matInput type="number" [(ngModel)]="answer">
+    </mat-form-field>
+    <ng-template #showResult>
+      <span>{{answer}}</span>
+    </ng-template>
+    <button mat-raised-button color="primary" (click)="checkAnswer()" [disabled]="answer === ''" *ngIf="result === undefined">Ответить</button>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,15 @@
+.correct {
+  background-color: aquamarine;
+  color: black;
+}
+.incorrect {
+  background-color: darkred;
+}
+
+.mat-card-content span {
+  margin: 0 4px;
+}
+
+.mat-form-field {
+  margin: 0 4px;
+}
